@@ -13,3 +13,21 @@
             for (String beanDefinitionName : beanDefinitionNames) {
                 System.out.println(beanDefinitionName);
             }
+
+
+三、包扫描过滤
+
+
+     参数解释：1：basePackages包扫描
+              2：excludeFilters 排除扫描
+              3：@ComponentScan.Filter
+              3.1：filter(注解)类型(
+              ANNOTATION(默认),ASSIGNABLE_TYPE,ASPECTJ,REGEX,CUSTOM;
+              )
+              3.2：classes 不包含的注解类
+
+    @ComponentScan(basePackages = {"com.zhang.spring"},excludeFilters = {
+            @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {
+                    Controller.class, Service.class
+            })
+    })
