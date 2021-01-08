@@ -2,6 +2,7 @@ package com.zhang.spring.springConfig;
 
 import com.zhang.spring.bean.Person;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,10 +12,11 @@ import org.springframework.context.annotation.Configuration;
  * @date:2021/1/8
  */
 @Configuration
+@ComponentScan(basePackages = {"com.zhang.spring"})
 public class FirstConfig {
 
     @Bean
-    public Person person(){
+    public Person person1(){
         return new Person("zs",20);
     }
 

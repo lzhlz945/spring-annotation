@@ -1,5 +1,15 @@
 一、spring类配置查看类的类型
+
      String[] names = context1.getBeanNamesForType(Person.class);
             for (String name : names) {
                 System.out.println(name);
+            }
+
+
+
+二、自动扫描组件名称查询
+
+    String[] beanDefinitionNames = context1.getBeanDefinitionNames();
+            for (String beanDefinitionName : beanDefinitionNames) {
+                System.out.println(beanDefinitionName);
             }

@@ -19,11 +19,22 @@ public class AppTest
      */
     @Test
     public void test01(){
-        Person person = context1.getBean("person",Person.class);
+        Person person = context1.getBean("person1",Person.class);
         System.out.println(person);
         String[] names = context1.getBeanNamesForType(Person.class);
         for (String name : names) {
             System.out.println(name);
+        }
+    }
+
+    /**
+     * 测试自动扫描组件
+     */
+    @Test
+    public void test02(){
+        String[] beanDefinitionNames = context1.getBeanDefinitionNames();
+        for (String beanDefinitionName : beanDefinitionNames) {
+            System.out.println(beanDefinitionName);
         }
     }
 }
