@@ -25,7 +25,7 @@ public class MyCustomer implements TypeFilter {
     public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
 
         ClassMetadata classMetadata = metadataReader.getClassMetadata();
-        System.out.println("--->"+metadataReader.toString());
+//        System.out.println("--->"+metadataReader.toString());
         if(classMetadata.getClassName().contains("ao")){
             return true;
         }

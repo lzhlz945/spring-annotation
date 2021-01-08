@@ -1,9 +1,12 @@
 package com.zhang.spring.springConfig;
 
 import com.zhang.spring.bean.Person;
+import com.zhang.spring.component.Component1;
+import com.zhang.spring.component.Component2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * @author: create by zhl
@@ -12,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @date:2021/1/8
  */
 @Configuration
+@Import({Component1.class, Component2.class})
 public class ConditionalConfig {
 
     @Bean
