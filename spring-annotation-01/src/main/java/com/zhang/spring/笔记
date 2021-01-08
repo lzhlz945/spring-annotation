@@ -37,3 +37,23 @@
 
     2、ASSIGNABLE_TYPE:可分配类型 类来过滤
     @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = {FirstDao .class})
+
+
+四、MyCustomer implements TypeFilter自定义扫描过滤
+
+      1、 /**
+         * 参数1：metadataReader获取当前正在扫描类的信息
+         * 参数2：获取其他类任何信息
+         */
+
+        public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)
+
+        ClassMetadata classMetadata = metadataReader.getClassMetadata();
+                System.out.println("--->"+metadataReader.toString());
+                if(classMetadata.getClassName().contains("ao")){
+                    return true;
+                }
+        利用类元数据获取类名，判断类是否包含"ao",装配到容器中
+
+      2、配置文件中代码：
+         @ComponentScan.Filter(type=FilterType.CUSTOM,classes = {MyCustomer.class})
