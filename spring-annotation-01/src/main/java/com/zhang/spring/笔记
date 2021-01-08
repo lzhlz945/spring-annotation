@@ -63,3 +63,8 @@
    在@bean下加@Scope
    singleton:单例，加载xml或者配置类是就创建了bean
    prototype:多例，调用对象时在装配bean
+
+
+六、懒加载
+   只有在单实例时用，启动容器不会创建bean，第一次调用会初始化bean
+   @Lazy

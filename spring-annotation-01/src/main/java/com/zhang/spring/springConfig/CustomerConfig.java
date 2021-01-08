@@ -16,9 +16,10 @@ import org.springframework.stereotype.Controller;
         @ComponentScan.Filter(type=FilterType.CUSTOM,classes = {MyCustomer.class})
 },useDefaultFilters = false)
 public class CustomerConfig {
-    @Scope(value = "prototype")
+//    @Scope(value = "prototype")
 //    @Scope(value = "Singleton")
     @Bean
+    @Lazy
     public Person person1(){
         System.out.println("person被创建了.....");
         return new Person("zs",20);
