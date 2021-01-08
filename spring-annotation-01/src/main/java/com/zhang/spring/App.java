@@ -10,5 +10,6 @@ public class App
     {
         System.out.println( "Hello World!" );
         System.out.println("bran1初始化");
+        System.out.println("bran2初始化");
     }
 }
