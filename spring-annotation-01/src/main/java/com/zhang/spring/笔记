@@ -68,3 +68,17 @@
 六、懒加载
    只有在单实例时用，启动容器不会创建bean，第一次调用会初始化bean
    @Lazy
+
+七、@Conditional 可以在方法上 或者类上
+
+    1、他的接口是Condition
+        boolean matches(ConditionContext var1, AnnotatedTypeMetadata var2);
+        参数1：判断条件上下文能修改的信息； 参数2：注释元数据
+
+    2、自定义类实现Condition  获取系统 os.name
+               //1.获取工厂bean
+               //2.获取类加载器
+               //3.获取环境
+               //4.获取容器的注册信息
+               //获取系统环境名称
+               return false;
