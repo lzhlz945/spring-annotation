@@ -25,11 +25,16 @@ import org.springframework.stereotype.Service;
  *          )
  *          3.2：classes 不包含的注解类
 * */
-@ComponentScan(basePackages = {"com.zhang.spring"},excludeFilters = {
+/*@ComponentScan(basePackages = {"com.zhang.spring"},excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {
                 Controller.class, Service.class
         })
-})
+})*/
+@ComponentScan(basePackages = {"com.zhang.spring"},includeFilters = {
+        @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {
+                Service.class
+        })
+},useDefaultFilters = false)
 public class FirstConfig {
 
     @Bean

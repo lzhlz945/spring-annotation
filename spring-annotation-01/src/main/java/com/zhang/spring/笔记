@@ -31,3 +31,5 @@
                     Controller.class, Service.class
             })
     })
+
+    只包含：useDefaultFilters = false
