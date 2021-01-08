@@ -18,6 +18,7 @@
 三、包扫描过滤
 
 
+     1、FilterType.ANNOTATION：注解过滤
      参数解释：1：basePackages包扫描
               2：excludeFilters 排除扫描
               3：@ComponentScan.Filter
@@ -33,3 +34,6 @@
     })
 
     只包含：useDefaultFilters = false
+
+    2、ASSIGNABLE_TYPE:可分配类型 类来过滤
+    @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = {FirstDao .class})

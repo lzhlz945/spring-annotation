@@ -1,6 +1,8 @@
 package com.zhang.spring.springConfig;
 
 import com.zhang.spring.bean.Person;
+import com.zhang.spring.dao.FirstDao;
+import com.zhang.spring.service.FirstService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +34,8 @@ import org.springframework.stereotype.Service;
 })*/
 @ComponentScan(basePackages = {"com.zhang.spring"},includeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {
-                Service.class
-        })
+                Controller.class
+        }),@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = {FirstDao .class})
 },useDefaultFilters = false)
 public class FirstConfig {
 
