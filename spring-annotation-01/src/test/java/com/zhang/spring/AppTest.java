@@ -49,4 +49,16 @@ public class AppTest
             System.out.println(beanDefinitionName);
         }
     }
+    /**
+     * 测试scope
+     */
+    @Test
+    public void test04(){
+        String[] beanDefinitionNames = context2.getBeanDefinitionNames();
+        for (String beanDefinitionName : beanDefinitionNames) {
+            System.out.println(beanDefinitionName);
+        }
+        Person person = context2.getBean("person1",Person.class);
+        System.out.println();
+    }
 }
