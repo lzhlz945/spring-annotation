@@ -6,6 +6,7 @@ import com.zhang.spring.bean.Person;
 import com.zhang.spring.springConfig.ConditionalConfig;
 import com.zhang.spring.springConfig.CustomerConfig;
 import com.zhang.spring.springConfig.FirstConfig;
+import com.zhang.spring.springConfig.ImportConfig;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -17,8 +18,9 @@ import org.springframework.core.env.Environment;
 public class AppTest 
 {
        private ApplicationContext context1 = new AnnotationConfigApplicationContext(FirstConfig.class);
-       private ApplicationContext context2 = new AnnotationConfigApplicationContext(CustomerConfig .class);
-       private ApplicationContext context3 = new AnnotationConfigApplicationContext(ConditionalConfig  .class);
+       private ApplicationContext context2 = new AnnotationConfigApplicationContext(CustomerConfig.class);
+       private ApplicationContext context3 = new AnnotationConfigApplicationContext(ConditionalConfig.class);
+       private ApplicationContext context4 = new AnnotationConfigApplicationContext(ImportConfig.class);
     /**
      * 测试第一个FirstConfig
      */
@@ -73,6 +75,18 @@ public class AppTest
         Environment environment = context3.getEnvironment();
         String osName = environment.getProperty("os.name");
         System.out.println("系统环境："+osName);
+
+    }
+
+    /**
+     * 测试ImportSelector,返回的是全类名的类的数组，来注入到容器中
+     */
+    @Test
+    public void test06(){
+        String[] beanDefinitionNames = context4.getBeanDefinitionNames();
+        for (String name : beanDefinitionNames) {
+            System.out.println(name);
+        }
 
     }
 }

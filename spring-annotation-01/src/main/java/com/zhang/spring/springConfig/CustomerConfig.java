@@ -1,9 +1,8 @@
 package com.zhang.spring.springConfig;
 
 import com.zhang.spring.bean.Person;
-import com.zhang.spring.dao.FirstDao;
+import com.zhang.spring.impl.MyCustomer;
 import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Controller;
 
 /**
  * @author: create by zhl

@@ -1,7 +1,5 @@
-package com.zhang.spring.springConfig;
+package com.zhang.spring.impl;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;

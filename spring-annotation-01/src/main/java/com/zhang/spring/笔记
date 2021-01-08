@@ -84,7 +84,17 @@
                return false;
 
 
-八、导入其他api组件 @Import
+八、
+   1、导入其他api组件 @Import
 
     导入方法：xml beans 、配置类 @Bean
     @Import({Component1.class, Component2.class})
+
+
+   2、实现ImportSelector接口
+
+   参数：获取很多注释信息
+   返回String数组：api类的全类名
+      public String[] selectImports(AnnotationMetadata annotationMetadata) {
+              return new String[]{"com.zhang.spring.component.Component3","com.zhang.spring.component.Component4"};
+          }

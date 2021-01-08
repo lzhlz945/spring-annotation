@@ -1,4 +1,4 @@
-package com.zhang.spring.springConfig;
+package com.zhang.spring.impl;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -13,7 +13,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @description: com.zhang.spring.springConfig
  * @date:2021/1/8
  */
-public class LsConditional implements Condition {
+public class ZsConditional implements Condition {
     /**
      *参数1： conditionContext 判断条件上下文能修改的信息
      * 参数2：annotatedTypeMetadata 注释元数据
@@ -30,7 +30,7 @@ public class LsConditional implements Condition {
         BeanDefinitionRegistry registry = conditionContext.getRegistry();
         //获取系统环境名称
         String osName = environment.getProperty("os.name");
-        if(osName.contains("Linux")){
+        if(osName.contains("Windows")){
             return true;
         }
         return false;
