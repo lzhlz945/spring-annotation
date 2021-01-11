@@ -110,3 +110,10 @@
 
 九、factoryBean
        和xml一样，返回的对象可以不一致
+
+
+
+十、bean的init和destroy
+
+       @Scope("prototype") ----多实例下，容器不会去管理这个bean，不会调用销毁方法
+       @Bean(initMethod = "init",destroyMethod = "destroy")

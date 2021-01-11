@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.zhang.spring.bean.Person;
 import com.zhang.spring.bean.TestFactoryBean;
+import com.zhang.spring.bean.TestInitAndDestroy;
 import com.zhang.spring.impl.MyFactoryBean;
 import com.zhang.spring.springConfig.*;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class AppTest
        private ApplicationContext context2 = new AnnotationConfigApplicationContext(CustomerConfig.class);
        private ApplicationContext context3 = new AnnotationConfigApplicationContext(ConditionalConfig.class);
        private ApplicationContext context4 = new AnnotationConfigApplicationContext(ImportConfig.class);
-       private ApplicationContext context5 = new AnnotationConfigApplicationContext(FactoryBeanConfig.class);
+       private AnnotationConfigApplicationContext context5 = new AnnotationConfigApplicationContext(FactoryBeanConfig.class);
     /**
      * 测试第一个FirstConfig
      */
@@ -97,7 +98,10 @@ public class AppTest
     public void test07(){
 
         Object myFactoryBean = context5.getBean("myFactoryBean");
+        TestInitAndDestroy  testInitAndDestroy = context5.getBean("testInitAndDestroy", TestInitAndDestroy.class);
+        System.out.println(testInitAndDestroy);
         System.out.println(myFactoryBean.getClass());
+        context5.close();
 
     }
 }
