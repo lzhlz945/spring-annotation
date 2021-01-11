@@ -107,3 +107,6 @@
                   beanDefinitionRegistry.registerBeanDefinition("com.zhang.spring.bean.Rainbow",rootBeanDefinition);
                   System.out.println("Rainbow被加载到容器了。。。");
               }
+
+九、factoryBean
+       和xml一样，返回的对象可以不一致

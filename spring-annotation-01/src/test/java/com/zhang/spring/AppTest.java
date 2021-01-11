@@ -3,10 +3,9 @@ package com.zhang.spring;
 import static org.junit.Assert.assertTrue;
 
 import com.zhang.spring.bean.Person;
-import com.zhang.spring.springConfig.ConditionalConfig;
-import com.zhang.spring.springConfig.CustomerConfig;
-import com.zhang.spring.springConfig.FirstConfig;
-import com.zhang.spring.springConfig.ImportConfig;
+import com.zhang.spring.bean.TestFactoryBean;
+import com.zhang.spring.impl.MyFactoryBean;
+import com.zhang.spring.springConfig.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,6 +20,7 @@ public class AppTest
        private ApplicationContext context2 = new AnnotationConfigApplicationContext(CustomerConfig.class);
        private ApplicationContext context3 = new AnnotationConfigApplicationContext(ConditionalConfig.class);
        private ApplicationContext context4 = new AnnotationConfigApplicationContext(ImportConfig.class);
+       private ApplicationContext context5 = new AnnotationConfigApplicationContext(FactoryBeanConfig.class);
     /**
      * 测试第一个FirstConfig
      */
@@ -87,6 +87,17 @@ public class AppTest
         for (String name : beanDefinitionNames) {
             System.out.println(name);
         }
+
+    }
+
+    /**
+     * 测试factoryBean,返回的类型和配置的不一致
+     */
+    @Test
+    public void test07(){
+
+        Object myFactoryBean = context5.getBean("myFactoryBean");
+        System.out.println(myFactoryBean.getClass());
 
     }
 }
