@@ -162,3 +162,9 @@
          private BookDao bookDao;
 
          @Primary  (没有Qualifier时，优先指定)
+
+
+十四、@Autowired
+
+     可以标在方法、参数、属性、构造器上都是从容器中获取的组件
+     如果容器只有一个有参构造器，@Autowired可以省略
