@@ -168,3 +168,19 @@
 
      可以标在方法、参数、属性、构造器上都是从容器中获取的组件
      如果容器只有一个有参构造器，@Autowired可以省略
+
+
+十五、Aware
+     类使用容器的组件
+     1、实现xxAware
+     2、初步实现原理：
+       ①、这些都是经过xxAwareProcessor 处理而来
+       ②、 xxAwareProcessor implements BeanPostProcessor
+           在postProcessBeforeInitialization()中进行初步判断，
+           然后权限的检查，this.invokeAwareInterfaces(bean);
+            if (bean instanceof Aware) 判断是不是他的实现类
+
+            如果是经过判断找到对应的：
+             if (bean instanceof xxxAware) {
+                            ((xxxAware)bean).setMessageSource(this.applicationContext);
+                        }

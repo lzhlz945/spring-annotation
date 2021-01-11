@@ -1,12 +1,8 @@
 package com.zhang.spring.springConfig;
 
 import com.zhang.spring.bean.Person;
-import com.zhang.spring.dao.FirstDao;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Controller;
+import com.zhang.spring.impl.MyCustomer;
+import org.springframework.context.annotation.*;
 
 /**
  * @author: create by zhl
@@ -19,8 +15,12 @@ import org.springframework.stereotype.Controller;
         @ComponentScan.Filter(type=FilterType.CUSTOM,classes = {MyCustomer.class})
 },useDefaultFilters = false)
 public class CustomerConfig {
+//    @Scope(value = "prototype")
+//    @Scope(value = "Singleton")
     @Bean
+    @Lazy
     public Person person1(){
+        System.out.println("person被创建了.....");
         return new Person("zs",20);
     }
 

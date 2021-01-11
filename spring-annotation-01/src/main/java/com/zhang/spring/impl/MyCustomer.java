@@ -1,7 +1,5 @@
-package com.zhang.spring.springConfig;
+package com.zhang.spring.impl;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
@@ -25,7 +23,7 @@ public class MyCustomer implements TypeFilter {
     public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
 
         ClassMetadata classMetadata = metadataReader.getClassMetadata();
-        System.out.println("--->"+metadataReader.toString());
+//        System.out.println("--->"+metadataReader.toString());
         if(classMetadata.getClassName().contains("ao")){
             return true;
         }

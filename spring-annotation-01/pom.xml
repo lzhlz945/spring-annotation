@@ -71,5 +71,12 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--inject java注解依赖-->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
 </project>
