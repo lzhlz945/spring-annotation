@@ -98,3 +98,12 @@
       public String[] selectImports(AnnotationMetadata annotationMetadata) {
               return new String[]{"com.zhang.spring.component.Component3","com.zhang.spring.component.Component4"};
           }
+
+   3、使用ImportBeanDefinitionRegistrar 自定义组件注册器
+      Boolean red=beanDefinitionRegistry.containsBeanDefinition("red");
+              Boolean blue=beanDefinitionRegistry.containsBeanDefinition("blue");
+              if(red && blue){
+                  RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(Rainbow.class);
+                  beanDefinitionRegistry.registerBeanDefinition("com.zhang.spring.bean.Rainbow",rootBeanDefinition);
+                  System.out.println("Rainbow被加载到容器了。。。");
+              }
