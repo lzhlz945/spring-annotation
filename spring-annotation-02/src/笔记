@@ -1,0 +1,186 @@
+一、spring类配置查看类的类型
+
+     String[] names = context1.getBeanNamesForType(Person.class);
+            for (String name : names) {
+                System.out.println(name);
+            }
+
+
+
+二、自动扫描组件名称查询
+
+    String[] beanDefinitionNames = context1.getBeanDefinitionNames();
+            for (String beanDefinitionName : beanDefinitionNames) {
+                System.out.println(beanDefinitionName);
+            }
+
+
+三、包扫描过滤
+
+
+     1、FilterType.ANNOTATION：注解过滤
+     参数解释：1：basePackages包扫描
+              2：excludeFilters 排除扫描
+              3：@ComponentScan.Filter
+              3.1：filter(注解)类型(
+              ANNOTATION(默认),ASSIGNABLE_TYPE,ASPECTJ,REGEX,CUSTOM;
+              )
+              3.2：classes 不包含的注解类
+
+    @ComponentScan(basePackages = {"com.zhang.spring"},excludeFilters = {
+            @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {
+                    Controller.class, Service.class
+            })
+    })
+
+    只包含：useDefaultFilters = false
+
+    2、ASSIGNABLE_TYPE:可分配类型 类来过滤
+    @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = {FirstDao .class})
+
+
+四、MyCustomer implements TypeFilter自定义扫描过滤
+
+      1、 /**
+         * 参数1：metadataReader获取当前正在扫描类的信息
+         * 参数2：获取其他类任何信息
+         */
+
+        public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)
+
+        ClassMetadata classMetadata = metadataReader.getClassMetadata();
+                System.out.println("--->"+metadataReader.toString());
+                if(classMetadata.getClassName().contains("ao")){
+                    return true;
+                }
+        利用类元数据获取类名，判断类是否包含"ao",装配到容器中
+
+      2、配置文件中代码：
+         @ComponentScan.Filter(type=FilterType.CUSTOM,classes = {MyCustomer.class})
+
+
+五、bean scope属性
+   在@bean下加@Scope
+   singleton:单例，加载xml或者配置类是就创建了bean
+   prototype:多例，调用对象时在装配bean
+
+
+六、懒加载
+   只有在单实例时用，启动容器不会创建bean，第一次调用会初始化bean
+   @Lazy
+
+七、@Conditional 可以在方法上 或者类上
+
+    1、他的接口是Condition
+        boolean matches(ConditionContext var1, AnnotatedTypeMetadata var2);
+        参数1：判断条件上下文能修改的信息； 参数2：注释元数据
+
+    2、自定义类实现Condition  获取系统 os.name
+               //1.获取工厂bean
+               //2.获取类加载器
+               //3.获取环境
+               //4.获取容器的注册信息
+               //获取系统环境名称
+               return false;
+
+
+八、
+   1、导入其他api组件 @Import
+
+    导入方法：xml beans 、配置类 @Bean
+    @Import({Component1.class, Component2.class})
+
+
+   2、实现ImportSelector接口
+
+   参数：获取很多注释信息
+   返回String数组：api类的全类名
+      public String[] selectImports(AnnotationMetadata annotationMetadata) {
+              return new String[]{"com.zhang.spring.component.Component3","com.zhang.spring.component.Component4"};
+          }
+
+   3、使用ImportBeanDefinitionRegistrar 自定义组件注册器
+      Boolean red=beanDefinitionRegistry.containsBeanDefinition("red");
+              Boolean blue=beanDefinitionRegistry.containsBeanDefinition("blue");
+              if(red && blue){
+                  RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(Rainbow.class);
+                  beanDefinitionRegistry.registerBeanDefinition("com.zhang.spring.bean.Rainbow",rootBeanDefinition);
+                  System.out.println("Rainbow被加载到容器了。。。");
+              }
+
+九、factoryBean
+       和xml一样，返回的对象可以不一致
+
+
+
+十、bean的init和destroy
+
+       @Scope("prototype") ----多实例下，容器不会去管理这个bean，不会调用销毁方法
+       @Bean(initMethod = "init",destroyMethod = "destroy")
+
+
+十一、BeanPostProcessor在bean初始化前后做什么
+
+   @Component
+   public class MyBean implements BeanPostProcessor {
+       @Override
+       public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+           System.out.println("初始化之前");
+           return bean;
+       }
+
+       @Override
+       public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+           System.out.println("初始化之后");
+           return bean;
+       }
+   }
+
+
+十二、给bean的value赋值3种方法
+
+      1、value("xx")
+      2、value("#{xx}")
+      3、value("${xx}")
+
+      @PropertySource(value = {"classpath:/TestValue.properties"})在配置文件中
+      properties会被加载到运行环境里
+      String s1 = environment.getProperty("test.name");
+               @Value("${test.name}")
+               private String name;
+               @Value("#{18-1}")
+               private Integer age;
+
+
+十三、Autowired 自动装配
+
+         @Autowired(required = false)          支持Primary required
+         默认是true 自动装配  为false是就是null
+         @Qualifier("bookDao2")
+         @Inject                               支持Primary
+         @Resource("name")                     都不支持
+         private BookDao bookDao;
+
+         @Primary  (没有Qualifier时，优先指定)
+
+
+十四、@Autowired
+
+     可以标在方法、参数、属性、构造器上都是从容器中获取的组件
+     如果容器只有一个有参构造器，@Autowired可以省略
+
+
+十五、Aware
+     类使用容器的组件
+     1、实现xxAware
+     2、初步实现原理：
+       ①、这些都是经过xxAwareProcessor 处理而来
+       ②、 xxAwareProcessor implements BeanPostProcessor
+           在postProcessBeforeInitialization()中进行初步判断，
+           然后权限的检查，this.invokeAwareInterfaces(bean);
+            if (bean instanceof Aware) 判断是不是他的实现类
+
+            如果是经过判断找到对应的：
+             if (bean instanceof xxxAware) {
+                            ((xxxAware)bean).setMessageSource(this.applicationContext);
+                        }
