@@ -150,3 +150,15 @@
                private String name;
                @Value("#{18-1}")
                private Integer age;
+
+
+十三、Autowired 自动装配
+
+         @Autowired(required = false)          支持Primary required
+         默认是true 自动装配  为false是就是null
+         @Qualifier("bookDao2")
+         @Inject                               支持Primary
+         @Resource("name")                     都不支持
+         private BookDao bookDao;
+
+         @Primary  (没有Qualifier时，优先指定)
