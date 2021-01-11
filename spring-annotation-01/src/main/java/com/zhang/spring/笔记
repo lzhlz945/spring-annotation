@@ -135,3 +135,18 @@
            return bean;
        }
    }
+
+
+十二、给bean的value赋值3种方法
+
+      1、value("xx")
+      2、value("#{xx}")
+      3、value("${xx}")
+
+      @PropertySource(value = {"classpath:/TestValue.properties"})在配置文件中
+      properties会被加载到运行环境里
+      String s1 = environment.getProperty("test.name");
+               @Value("${test.name}")
+               private String name;
+               @Value("#{18-1}")
+               private Integer age;

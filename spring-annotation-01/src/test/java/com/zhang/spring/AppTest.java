@@ -3,6 +3,7 @@ package com.zhang.spring;
 import static org.junit.Assert.assertTrue;
 
 import com.zhang.spring.bean.Person;
+import com.zhang.spring.bean.Student;
 import com.zhang.spring.bean.TestFactoryBean;
 import com.zhang.spring.bean.TestInitAndDestroy;
 import com.zhang.spring.impl.MyFactoryBean;
@@ -21,6 +22,7 @@ public class AppTest
        private ApplicationContext context2 = new AnnotationConfigApplicationContext(CustomerConfig.class);
        private ApplicationContext context3 = new AnnotationConfigApplicationContext(ConditionalConfig.class);
        private ApplicationContext context4 = new AnnotationConfigApplicationContext(ImportConfig.class);
+       private ApplicationContext context6 = new AnnotationConfigApplicationContext(ValueConfig .class);
        private AnnotationConfigApplicationContext context5 = new AnnotationConfigApplicationContext(FactoryBeanConfig.class);
     /**
      * 测试第一个FirstConfig
@@ -102,6 +104,23 @@ public class AppTest
         System.out.println(testInitAndDestroy);
         System.out.println(myFactoryBean.getClass());
         context5.close();
+
+    }
+
+    /**
+     * 测试给bean的属性赋值的三种方式
+     * 1、value("xx")
+     * 2、value("#{xx}")
+     * 2、value("${xx}")
+     */
+    @Test
+    public void test08(){
+
+        Student student = context6.getBean("student", Student.class);
+        Environment environment = context6.getEnvironment();
+        String s1 = environment.getProperty("test.name");
+        System.out.println(s1);
+        System.out.println(student);
 
     }
 }
