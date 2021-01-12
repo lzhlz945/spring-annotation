@@ -184,3 +184,20 @@
              if (bean instanceof xxxAware) {
                             ((xxxAware)bean).setMessageSource(this.applicationContext);
                         }
+
+
+
+十六、profile
+
+
+      @Profile("dataSourceTest")
+     /**
+      * this();
+      * this.register(annotatedClasses);
+      * this.refresh();
+      */
+     AnnotationConfigApplicationContext context2=new AnnotationConfigApplicationContext();
+     Environment environment = context2.getEnvironment();
+     ((ConfigurableEnvironment) environment).setActiveProfiles("dataSourceDev");
+     context2.register(TestProfileConfig.class);
+     context2.refresh();
