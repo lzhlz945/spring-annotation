@@ -2,7 +2,9 @@ package com.zhang.spring;
 
 import static org.junit.Assert.assertTrue;
 
+import com.zhang.spring.bean.TestAspects;
 import com.zhang.spring.bean.TestAware;
+import com.zhang.spring.config.TestAspects01;
 import com.zhang.spring.config.TestAwareConfig;
 import com.zhang.spring.config.TestProfileConfig;
 import org.junit.Test;
@@ -20,7 +22,7 @@ import java.sql.SQLException;
 public class AppTest 
 {
 //    private ApplicationContext context1=new AnnotationConfigApplicationContext(TestAwareConfig .class);
-    private ApplicationContext context2=new AnnotationConfigApplicationContext(TestProfileConfig  .class);
+//    private ApplicationContext context2=new AnnotationConfigApplicationContext(TestProfileConfig  .class);
     /**
      * Rigorous Test :-)
      */
@@ -62,4 +64,17 @@ public class AppTest
 
 
     }
+
+
+    /**
+     * 测试 aspects（数相除）
+     */
+    @Test
+    public void test03(){
+
+        ApplicationContext context=new AnnotationConfigApplicationContext(TestAspects01.class);
+        TestAspects testAspects = context.getBean("testAspects", TestAspects.class);
+        testAspects.division(1,1);
+    }
+
 }

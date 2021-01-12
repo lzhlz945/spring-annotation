@@ -201,3 +201,24 @@
      ((ConfigurableEnvironment) environment).setActiveProfiles("dataSourceDev");
      context2.register(TestProfileConfig.class);
      context2.refresh();
+
+
+十七、切面JoinPoint ProceedingJoinPoint
+
+   1、定义增强类和切面类(加上@Aspect)
+   2、写通知
+       @Pointcut(value = "execution(* com.zhang.spring.bean.*.*(..))")
+          public void pointCut(){
+
+          }
+    返回通知
+    //JoinPoint joinPoint必须写在前面
+    @AfterReturning(value = "pointCut()",returning ="result" )
+    public void getResult(JoinPoint joinPoint,Object result){
+        System.out.println(""+joinPoint.getSignature().getName()+"相除的结果："+"{"+result+"}");
+    }
+
+     @Around("pointCut()")
+         public Object proxy1(ProceedingJoinPoint joinPoint) throws Throwable {
+
+   3、写配置文件加上@EnableAspectJAutoProxy
