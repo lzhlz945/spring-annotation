@@ -222,3 +222,93 @@
          public Object proxy1(ProceedingJoinPoint joinPoint) throws Throwable {
 
    3、写配置文件加上@EnableAspectJAutoProxy
+
+
+十八、分析aspect的原理
+
+
+    进入步骤直到得到自定义注册bean
+    步骤->
+      1、 @EnableAspectJAutoProxy 进入->
+         @Import({AspectJAutoProxyRegistrar.class}) 进入->
+         AopConfigUtils.registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry); 进入->
+         return registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry, (Object)null); 进入->
+         return registerOrEscalateApcAsRequired(AnnotationAwareAspectJAutoProxyCreator.class, registry, source); 进入->
+         registerOrEscalateApcAsRequired(Class<?> cls, BeanDefinitionRegistry registry, Object source)根据需要注册或升级Apc
+            参数的值分析：cls想注册它：AnnotationAwareAspectJAutoProxyCreator
+            if (registry.containsBeanDefinition("org.springframework.aop.config.internalAutoProxyCreator"))
+            第一次判断没有：
+             RootBeanDefinition beanDefinition = new RootBeanDefinition(cls);
+                        beanDefinition.setSource(source);
+                        beanDefinition.getPropertyValues().add("order", -2147483648);
+                        beanDefinition.setRole(2);
+                        registry.registerBeanDefinition("org.springframework.aop.config.internalAutoProxyCreator", beanDefinition);
+                        return beanDefinition;
+             这段代码就是把   internalAutoProxyCreator和AnnotationAwareAspectJAutoProxyCreator注册到BeanDefinitionRegistry
+            internalAutoProxyCreator=AnnotationAwareAspectJAutoProxyCreator
+            这样就导入了组件AnnotationAwareAspectJAutoProxyCreator
+      2、AnnotationAwareAspectJAutoProxyCreator
+         他的父类：
+              AspectJAwareAdvisorAutoProxyCreator ->
+               AbstractAdvisorAutoProxyCreator ->
+                AbstractAutoProxyCreator ->
+
+              AbstractAutoProxyCreator  实现了
+              implements SmartInstantiationAwareBeanPostProcessor(BeanPostProcessor 后置处理器), BeanFactoryAware(这就是beanFactory，自动装配)
+
+         方法重写调用：
+         AbstractAutoProxyCreator.setBeanFactory();
+          AbstractAutoProxyCreator.postProcessBeforeInstantiation();
+          AbstractAutoProxyCreator.postProcessAfterInstantiation();
+
+         AbstractAdvisorAutoProxyCreator.setBeanFactory();重写父类->initBeanFactory()
+
+         AnnotationAwareAspectJAutoProxyCreator.initBeanFactory() 重写父类
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
